@@ -1,0 +1,207 @@
+Реализовать структуру данных «Очередь с приоритетами» на основе динамического массива (vector или deque) в виде шаблона, параметризованного типом элемента, контейнером и компаратором.
+
+Структура должна соответствовать отсортированному массиву, поддерживаемому в состоянии упорядоченности. Реализовать следующие операции:
+
+Добавление элемента;
+Извлечение максимального;
+Создание очереди из массива элементов (выполнить сортировку);
+Слияние двух очередей с приоритетами;
+Операции вывода в поток.
+Выполнить сравнение эффективности данных операций по времени с шаблоном std::priority_queue.
+
+Реализовать аналогичный шаблон «Очередь с приоритетами» на основе бинарной кучи (тоже с использованием deque или vector), и провести сравнение эффективности реализаций. В качестве задачи для тестирования использовать следующую: дан текстовый файл (использовать что-то большое, например, «Война и мир»), найти двадцать самых длинных слов из этого текста.
+
+Дополнительное задание: подумать, можно ли использовать очередь с приоритетами для «улучшенной генерации» двоичного дерева поиска, когда элементы сначала размещаются в очереди с приоритетами, и лишь потом по некоторому критерию перемещаются в дерево поиска.
+
+#pragma once
+
+#include <iostream>
+#include <vector>
+#include <initializer_list>
+#include <algorithm>
+
+template<typename T, class Compare = std::less<T>>
+class PriorityQueueHeap {
+    Compare cmp = Compare();
+    std::vector<T> heap;
+
+public:
+    PriorityQueueHeap(Compare cmp = Compare())
+        : cmp(cmp) {
+    }
+
+    PriorityQueueHeap(const PriorityQueueHeap& other)
+        : heap(other.heap), cmp(other.cmp) {
+    }
+
+    PriorityQueueHeap(PriorityQueueHeap&& other) {
+        std::swap(heap, other.heap);
+        std::swap(cmp, other.cmp);
+    }
+
+    PriorityQueueHeap(const std::vector<T>& vec)
+        : PriorityQueueHeap(std::vector<T>(vec)) {
+    }
+
+    PriorityQueueHeap(std::initializer_list<T> il)
+        : PriorityQueueHeap(std::vector<T>(il)) {
+    }
+
+    PriorityQueueHeap(std::vector<T>&& vec) : heap(std::move(vec)) {
+        heapify();
+    }
+
+    bool empty() {
+        return heap.empty();
+    }
+
+    size_t size() {
+        return heap.size();
+    }
+
+private:
+    void heapify() {
+        for (int i = heap.size() / 2 - 1; i >= 0; i--) {
+            shift_down(i);
+        }
+    }
+
+    void shift_down(int i) {
+        while (2 * i + 1 < heap.size()) {
+            int m = 2 * i + 1;
+            if ((2 * i + 2 < heap.size()) && cmp(heap[m], heap[2 * i + 2])) {
+                m = 2 * i + 2;
+            }
+            if (cmp(heap[i], heap[m])) {
+                std::swap(heap[i], heap[m]);
+            }
+            else break;
+
+            i = m;
+        }
+    }
+
+    void shift_up(int i) {
+        while (i > 0) {
+            int p = (i - 1) / 2;
+            if (cmp(heap[p], heap[i])) {
+                std::swap(heap[i], heap[p]);
+            }
+            else break;
+
+            i = p;
+        }
+    }
+
+public:
+
+    void push(const T& x) {
+        heap.push_back(x);
+        shift_up(heap.size() - 1);
+    }
+
+    void pop() {
+        std::swap(heap[0], heap[heap.size() - 1]);
+        heap.pop_back();
+        shift_down(0);
+    }
+
+    void merge(const PriorityQueueHeap& other) {
+        heap.insert(heap.end(), other.heap.begin(), other.heap.end());
+    }
+
+    const T& top() const {
+        return heap[0];
+    }
+
+    friend std::ostream& operator<<(std::ostream& out, const PriorityQueueHeap& other) {
+        for (const auto& elem : other.heap) {
+            out << elem << " ";
+        }
+
+        out << std::endl;
+        return out;
+    }
+};
+
+
+#pragma once
+
+#include <iostream>
+#include <vector>
+#include <initializer_list>
+#include <algorithm>
+
+template<typename T, class Compare = std::less<T>>
+class PriorityQueueVector {
+    Compare cmp = Compare();
+    std::vector<T> heap;
+
+public:
+    PriorityQueueVector(Compare cmp = Compare())
+        : cmp(cmp) { }
+
+    PriorityQueueVector(const PriorityQueueVector& other)
+        : heap(other.heap), cmp(other.cmp) { }
+
+    PriorityQueueVector(PriorityQueueVector&& other) {
+        std::swap(heap, other.heap);
+        std::swap(cmp, other.cmp);
+    }
+
+    PriorityQueueVector(const std::vector<T>& vec)
+        : PriorityQueueVector(std::vector<T>(vec)) { }
+
+    PriorityQueueVector(std::initializer_list<T> il)
+        : PriorityQueueVector(std::vector<T>(il)) { }
+
+    PriorityQueueVector(std::vector<T>&& vec) : heap(std::move(vec)) {
+        std::sort(this->heap.begin(), this->heap.end(), cmp);
+    }
+
+    bool empty() {
+        return heap.empty();
+    }
+
+    size_t size() {
+        return heap.size();
+    }
+
+    void push(T&& value) {
+        auto place = std::upper_bound(heap.begin(), heap.end(), value, cmp);
+        heap.insert(place, std::move(value));
+    }
+
+    void push(const T& value) {
+        push(std::move(T(value)));
+    }
+    
+    void merge(const PriorityQueueVector& other) {
+        std::vector<T> res(heap.size() + other.heap.size());
+        
+        std::merge(
+            heap.begin(), heap.end(),
+            other.heap.begin(), other.heap.end(),
+            res.begin(), cmp
+        );
+
+        std::swap(heap, res);
+    }
+
+    const T& top() const {
+        return heap[heap.size() - 1];
+    }
+
+    void pop() {
+        heap.erase(heap.end() - 1);
+    }
+
+    friend std::ostream& operator<<(std::ostream& out, const PriorityQueueVector& other) {
+        for (const auto& elem : other.heap) {
+            out << elem << " ";
+        }
+
+        out << std::endl;
+        return out;
+    }
+};

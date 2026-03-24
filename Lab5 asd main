@@ -1,0 +1,230 @@
+#include <iostream>
+#include <chrono>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <cctype>
+#include <iomanip>
+
+// Подключаем ваши реализации
+#include "PriorityQueueHeap.h"
+#include "PriorityQueueVector.h"
+
+// Функция для извлечения слов из текста
+std::vector<std::string> extract_words(const std::string& filename) {
+    std::ifstream file(filename);
+    std::vector<std::string> words;
+    std::string word;
+    
+    if (!file.is_open()) {
+        std::cerr << "Ошибка: не удалось открыть файл " << filename << std::endl;
+        return words;
+    }
+    
+    char ch;
+    while (file.get(ch)) {
+        if (std::isalpha(static_cast<unsigned char>(ch))) {
+            word.push_back(std::tolower(static_cast<unsigned char>(ch)));
+        } else if (!word.empty()) {
+            words.push_back(word);
+            word.clear();
+        }
+    }
+    
+    if (!word.empty()) {
+        words.push_back(word);
+    }
+    
+    file.close();
+    return words;
+}
+
+// Поиск N самых длинных слов через PriorityQueueHeap (бинарная куча)
+std::vector<std::string> find_top_n_words_heap(const std::vector<std::string>& words, size_t n) {
+    if (n == 0) return {};
+    
+    // Компаратор для min-heap (храним наименьшие вверху)
+    auto cmp = [](const std::string& a, const std::string& b) {
+        return a.length() > b.length(); // > для min-heap
+    };
+    
+    PriorityQueueHeap<std::string, std::vector<std::string>, decltype(cmp)> pq(cmp);
+    
+    for (const auto& word : words) {
+        pq.push(word);
+        if (pq.size() > n) {
+            pq.pop();
+        }
+    }
+    
+    // Извлекаем результаты и сортируем по убыванию длины
+    std::vector<std::string> result;
+    while (!pq.empty()) {
+        result.push_back(pq.top());
+        pq.pop();
+    }
+    
+    // Сортируем по длине (от длинных к коротким)
+    std::sort(result.begin(), result.end(), 
+              [](const std::string& a, const std::string& b) {
+                  return a.length() > b.length();
+              });
+    
+    return result;
+}
+
+// Поиск N самых длинных слов через PriorityQueueVector (отсортированный массив)
+std::vector<std::string> find_top_n_words_vector(const std::vector<std::string>& words, size_t n) {
+    if (n == 0) return {};
+    
+    auto cmp = [](const std::string& a, const std::string& b) {
+        return a.length() < b.length();
+    };
+    
+    PriorityQueueVector<std::string, decltype(cmp)> pq(cmp);
+    
+    for (const auto& word : words) {
+        pq.push(word);
+        if (pq.size() > n) {
+            pq.pop();
+        }
+    }
+    
+    std::vector<std::string> result;
+    while (!pq.empty()) {
+        result.push_back(pq.top());
+        pq.pop();
+    }
+    
+    std::sort(result.begin(), result.end(), 
+              [](const std::string& a, const std::string& b) {
+                  return a.length() > b.length();
+              });
+    
+    return result;
+}
+
+// Поиск N самых длинных слов через std::priority_queue
+std::vector<std::string> find_top_n_words_std(const std::vector<std::string>& words, size_t n) {
+    if (n == 0) return {};
+    
+    auto cmp = [](const std::string& a, const std::string& b) {
+        return a.length() > b.length();
+    };
+    
+    std::priority_queue<std::string, std::vector<std::string>, decltype(cmp)> pq(cmp);
+    
+    for (const auto& word : words) {
+        pq.push(word);
+        if (pq.size() > n) {
+            pq.pop();
+        }
+    }
+    
+    std::vector<std::string> result;
+    while (!pq.empty()) {
+        result.push_back(pq.top());
+        pq.pop();
+    }
+    
+    std::sort(result.begin(), result.end(), 
+              [](const std::string& a, const std::string& b) {
+                  return a.length() > b.length();
+              });
+    
+    return result;
+}
+
+// Функция для измерения времени выполнения
+template<typename Func>
+double measure_time(Func func, const std::string& operation_name) {
+    auto start = std::chrono::high_resolution_clock::now();
+    func();
+    auto end = std::chrono::high_resolution_clock::now();
+    
+    std::chrono::duration<double, std::milli> duration = end - start;
+    return duration.count();
+}
+
+int main() {
+    const std::string filename = "war_and_peace.txt"; // или ваш файл
+    const size_t TOP_N = 20;
+    
+    std::cout << "=== Тестирование очередей с приоритетами ===" << std::endl;
+    std::cout << "Файл: " << filename << std::endl;
+    std::cout << "Поиск " << TOP_N << " самых длинных слов" << std::endl;
+    std::cout << std::string(70, '=') << std::endl;
+    
+    // Извлекаем слова
+    std::cout << "\nИзвлечение слов из файла..." << std::endl;
+    double extract_time = measure_time([&]() {
+        auto words = extract_words(filename);
+        std::cout << "Всего слов: " << words.size() << std::endl;
+    }, "extract");
+    std::cout << "Время извлечения: " << std::fixed << std::setprecision(3) << extract_time << " мс\n";
+    
+    // Получаем слова один раз для всех тестов
+    std::vector<std::string> words = extract_words(filename);
+    
+    if (words.empty()) {
+        std::cerr << "Нет слов для обработки!" << std::endl;
+        return 1;
+    }
+    
+    std::cout << "\n" << std::string(70, '-') << std::endl;
+    
+    // Тестирование PriorityQueueHeap (бинарная куча)
+    std::cout << "\n1. PriorityQueueHeap (бинарная куча):" << std::endl;
+    std::vector<std::string> heap_result;
+    double heap_time = measure_time([&]() {
+        heap_result = find_top_n_words_heap(words, TOP_N);
+    }, "heap");
+    std::cout << "   Время выполнения: " << std::fixed << std::setprecision(3) << heap_time << " мс" << std::endl;
+    
+    // Тестирование PriorityQueueVector (отсортированный массив)
+    std::cout << "\n2. PriorityQueueVector (отсортированный массив):" << std::endl;
+    std::vector<std::string> vector_result;
+    double vector_time = measure_time([&]() {
+        vector_result = find_top_n_words_vector(words, TOP_N);
+    }, "vector");
+    std::cout << "   Время выполнения: " << std::fixed << std::setprecision(3) << vector_time << " мс" << std::endl;
+    
+    // Тестирование std::priority_queue
+    std::cout << "\n3. std::priority_queue (стандартная):" << std::endl;
+    std::vector<std::string> std_result;
+    double std_time = measure_time([&]() {
+        std_result = find_top_n_words_std(words, TOP_N);
+    }, "std");
+    std::cout << "   Время выполнения: " << std::fixed << std::setprecision(3) << std_time << " мс" << std::endl;
+    
+    // Вывод результатов
+    std::cout << "\n" << std::string(70, '-') << std::endl;
+    std::cout << "\nТоп " << TOP_N << " самых длинных слов:" << std::endl;
+    std::cout << std::string(70, '-') << std::endl;
+    
+    for (size_t i = 0; i < heap_result.size() && i < TOP_N; ++i) {
+        std::cout << std::setw(3) << (i + 1) << ". "
+                  << std::setw(30) << std::left << heap_result[i].substr(0, 30)
+                  << " (длина: " << heap_result[i].length() << ")" << std::endl;
+    }
+    
+    // Сравнение производительности
+    std::cout << "\n" << std::string(70, '=') << std::endl;
+    std::cout << "Сравнение производительности:" << std::endl;
+    std::cout << std::string(70, '-') << std::endl;
+    std::cout << std::fixed << std::setprecision(3);
+    std::cout << "PriorityQueueHeap:      " << std::setw(10) << heap_time << " мс" << std::endl;
+    std::cout << "PriorityQueueVector:    " << std::setw(10) << vector_time << " мс" << std::endl;
+    std::cout << "std::priority_queue:    " << std::setw(10) << std_time << " мс" << std::endl;
+    
+    // Вычисление соотношений
+    std::cout << "\nОтносительная производительность (1 = fastest):" << std::endl;
+    double fastest = std::min({heap_time, vector_time, std_time});
+    std::cout << "PriorityQueueHeap:      " << std::setw(10) << std::fixed << std::setprecision(2) 
+              << (heap_time / fastest) << "x" << std::endl;
+    std::cout << "PriorityQueueVector:    " << std::setw(10) << (vector_time / fastest) << "x" << std::endl;
+    std::cout << "std::priority_queue:    " << std::setw(10) << (std_time / fastest) << "x" << std::endl;
+    
+    return 0;
+}

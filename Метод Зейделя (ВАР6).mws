@@ -1,0 +1,76 @@
+{VERSION 6 0 "IBM INTEL NT" "6.0" }
+{USTYLETAB {CSTYLE "Maple Input" -1 0 "Courier" 1 12 120 0 14 1 2 1 2 
+2 1 2 0 0 0 1 }{CSTYLE "2D Output" -1 20 "Times" 1 12 0 0 255 1 2 2 2 
+2 2 1 0 0 0 1 }{PSTYLE "Normal" -1 0 1 {CSTYLE "" -1 -1 "Times" 1 12 
+0 0 0 1 2 2 2 2 2 2 1 0 0 1 }1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Ma
+ple Output" -1 11 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 
+1 0 0 1 }3 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Left Justified Maple O
+utput" -1 12 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 1 0 
+0 1 }1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }}
+{SECT 0 {EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "
+> " 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 8 
+"restart;" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 13 "Digits := 12;
+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%'DigitsG\"#7" }}}{EXCHG {PARA 0 
+"> " 0 "" {MPLTEXT 1 0 7 "n := 4;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>
+%\"nG\"\"$" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 159 "C := array(1
+ .. n, 1 .. n, [\n  [ 0.03, -0.05, 0.22, -0.33 ], \n  [ 0.22, 0.55, -0
+.08, 0.07 ], \n  [ 0.33, 0.13, -0.08, -0.05 ], \n  [ 0.08, 0.17, 0.29,
+ 0.33 ]\n]);" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}{PARA 11 "" 1 "
+" {XPPMATH 20 "6#>%\"CGK%'matrixG6#7%7%\"\"!$!\"\"F,$\"\"\"F,7%#F,\"\"
+*F*#!\"#F17%#F3\"\"(#F.F6F*Q(pprint06\"" }}}{EXCHG {PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 42 "d := array(1 .. n, [.43, -1.8, -.8, 1.7]);" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#>%\"dGK%'vectorG6#7%$\"#>!\"\"#\"\"%\"\"*#\"
+#6\"\"(Q(pprint06\"" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 704 "Sei
+del := proc (n, x0, C, d, eps, maxit) \n  local xold, xnew, j, k, m, n
+rma, code; \n\n  xold := array(1 .. n); \n  for j to n do \n    xold[j
+] := x0[j]; \n  end do; \n    \n  nrma := eps+1; \n\n  for k to maxit \+
+while eps < nrma do \n    xnew := array(1 .. n); \n\n    for j to n do
+ \n      xnew[j] := add(C[j, m]*xnew[m], m = 1 .. j-1)\n        + add(
+C[j, m]*xold[m], m = j .. n)\n        + d[j] \n    end do; \n\n    nrm
+a := 0; \n    for j to n do \n      nrma := max(nrma, abs(xnew[j]-xold
+[j])); \n    end do; \n\n    for j to n do \n      xold[j] := xnew[j] \+
+\n    end do; \n\n    print(k, evalm(xnew)) \n  end do; \n\n  if k = m
+axit+1 then \n    code := 1 \n  else \n    code := 0 \n  end if; \n\n \+
+ return eval(xnew), k, code \nend proc;" }}{PARA 12 "" 1 "" {XPPMATH 
+20 "6#>%'SeidelGf*6(%\"nG%#x0G%\"CG%\"dG%$epsG%&maxitG6)%%xoldG%%xnewG
+%\"jG%\"kG%\"mG%%nrmaG%%codeG6\"F5C(>8$-%&arrayG6#;\"\"\"9$?(8&F=F=F>%
+%trueG>&F86#F@&9%FD>8),&9(F=F=F=?(8'F=F=9)2FJFHC(>8%F9?(F@F=F=F>FA>&FQ
+FD,(-%$addG6$*&&9&6$F@8(F=&FQ6#FgnF=/Fgn;F=,&F@F=F=!\"\"F=-FW6$*&FZF=&
+F8FinF=/Fgn;F@F>F=&9'FDF=>FH\"\"!?(F@F=F=F>FA>FH-%$maxG6$FH-%$absG6#,&
+FTF=FCF]o?(F@F=F=F>FA>FCFT-%&printG6$FL-%&evalmG6#FQ@%/FL,&FMF=F=F=>8*
+F=>F]qFgoO6%-%%evalGFhpFLF]qF5F5F5" }}}{EXCHG {PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 63 "x0 := array(1 .. n, [0, 0, 0, 0]); \neps := 0.001; \n
+maxit := 20;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%#x0GK%'vectorG6#7%\"
+\"!F)F)Q(pprint06\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%$epsG$\"\"\"!
+\"$" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%&maxitG\"#?" }}}{EXCHG {PARA 
+0 "> " 0 "" {MPLTEXT 1 0 47 "xx, it, err := Seidel(n, x0, C, d, eps, m
+axit);" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6$\"\"\"K%'vectorG6#7%$\"#>!\"\"$\"-LLLLLB!#7$\"-\">w/>1
+\"!#6Q(pprint06\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "6$\"\"#K%'vectorG6#
+7%$\"-'G9dG)>!#6$!,a=&=&=\"!#7$\"-\\P[?.5F*Q(pprint06\"" }}{PARA 11 "
+" 1 "" {XPPMATH 20 "6$\"\"$K%'vectorG6#7%$\"-$*oc],?!#6$!*dE[z)!#7$\"-
+*\\oTW***F-Q(pprint06\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "6$\"\"%K%'vec
+torG6#7%$\"-7lB.+?!#6$\"*')>#*>\"!#7$\"-a%)y++5F*Q(pprint06\"" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6$\"\"&K%'vectorG6#7%$\"-E'z))***>!#6$!'
+gs]!#7$\"-gGJ++5F*Q(pprint06\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>6%%
+#xxG%#itG%$errG6%K%'vectorG6#7%$\"-E'z))***>!#6$!'gs]!#7$\"-gGJ++5F/Q(
+pprint06\"\"\"'\"\"!" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 177 "if
+ err = 1 then \n  print(\"\314\345\362\356\344 \355\345 \361\356\370
+\270\353\361\377 \347\340 \363\352\340\347\340\355\355\356\345 \367
+\350\361\353\356 \350\362\345\360\340\366\350\351\") \nelse \n  print(
+\"\314\345\362\356\344 \361\356\370\270\353\361\377. \320\345\370\345
+\355\350\345:\"); print(evalm(xx));       print(\"\327\350\361\353\356
+ \350\362\345\360\340\366\350\351:\", it) \nend if;" }}{PARA 11 "" 1 "
+" {XPPMATH 20 "6#Q8|gw|`y|]z|iy|_y~|\\z|iy|cz|cv|fy|\\z|jz.~|[x|`y|cz|
+`y|hy|cy|`y:6\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#K%'vectorG6#7%$\"-E
+'z))***>!#6$!'gs]!#7$\"-gGJ++5F)Q(pprint06\"" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6$Q0|bx|cy|\\z|fy|iy~|cy|]z|`y|[z|[y|az|cy|dy:6\"\"\"'" }
+}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 24 "NV := evalm(xx-C&*xx-d);" 
+}}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%#NVGK%'vectorG6#7%$!(Ln:\"!#6$!(vo
+0\"!#7$\"\"!F0Q(pprint06\"" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 
+43 "print(\"\302\345\352\362\356\360 \355\345\342\377\347\352\350:\");
+ print(evalm(NV));" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#Q0|]w|`y|ey|]z|i
+y|[z~|hy|`y|]y|jz|by|ey|cy:6\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#K%'v
+ectorG6#7%$!(Ln:\"!#6$!(vo0\"!#7$\"\"!F.Q(pprint06\"" }}}{EXCHG {PARA 
+0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}}{MARK "13 0 0" 0 }{VIEWOPTS 1 1 0 1 
+1 1803 1 1 1 1 }{PAGENUMBERS 0 1 2 33 1 1 }

@@ -1,0 +1,90 @@
+{VERSION 6 0 "IBM INTEL NT" "6.0" }
+{USTYLETAB {CSTYLE "Maple Input" -1 0 "Courier" 0 1 255 0 0 1 0 1 0 0 
+1 0 0 0 0 1 }{CSTYLE "2D Math" -1 2 "Times" 0 1 0 0 0 0 0 0 2 0 0 0 0 
+0 0 1 }{CSTYLE "2D Output" 2 20 "" 0 1 0 0 255 1 0 0 0 0 0 0 0 0 0 1 }
+{PSTYLE "Normal" -1 0 1 {CSTYLE "" -1 -1 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 }0 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "Maple Output" 0 11 1 
+{CSTYLE "" -1 -1 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 }3 3 0 -1 -1 -1 0 
+0 0 0 0 0 -1 0 }{PSTYLE "Maple Plot" 0 13 1 {CSTYLE "" -1 -1 "" 0 1 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 }3 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }}
+{SECT 0 {EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 20 "restart;\nDigits:=12
+;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%'DigitsG\"#7" }}}{EXCHG {PARA 
+0 "> " 0 "" {MPLTEXT 1 0 88 "a:=0.0; b:=1.0; ya:=1.0;\nn:=10;\nf:=(x,y
+)-> evalf();\n#yt:=x-> evalf(exp(sin(x))*cos(x));\n" }}{PARA 11 "" 1 "
+" {XPPMATH 20 "6#>%\"aG$\"\"!F&" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%
+\"bG$\"#5!\"\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%#yaG$\"#5!\"\"" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#>%\"nG\"#5" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#>%\"fGf*6$%\"xG%\"yG6\"6$%)operatorG%&arrowGF)-%&evalfG
+6#,&9%\"\"\"*&-%$expG6#-%$sinG6#9$F2,(*$)-%$cosGF9\"\"#F2F2F7!\"\"F>FA
+F2F2F)F)F)" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%#ytGf*6#%\"xG6\"6$%)op
+eratorG%&arrowGF(-%&evalfG6#*&-%$expG6#-%$sinG6#9$\"\"\"-%$cosGF5F7F(F
+(F(" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 62 "h:=(b-a)/n;\nX:=arra
+y[0..n];\nY:=array[0..n];\nX[0]:=a;\nY[0]:=ya;" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#>%\"hG$\"-+++++5!#7" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#
+>%\"XG&%&arrayG6#;\"\"!\"#5" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%\"YG&
+%&arrayG6#;\"\"!\"#5" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>&%\"XG6#\"\"!
+$F'F'" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>&%\"YG6#\"\"!$\"#5!\"\"" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 44 "print(\"x=\",X[0],\" y=\",Y[
+0],\" yt=\",yt(X[0]));" }}{PARA 11 "" 1 "" {XPPMATH 20 "6(Q#x=6\"$\"\"
+!F&Q$~y=F$$\"#5!\"\"Q%~yt=F$$\"\"\"F&" }}}{EXCHG {PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 199 "for i from 0 to n-1 do\nYP:=evalf(Y[i]+h*f(X[i], Y[i
+])):\nYC:=evalf(Y[i]+h/2*(f(X[i],Y[i]) + f(X[i]+h, YP))):\nX[i+1]:=X[i
+]+h:\nY[i+1]:=YC:\nprint(\"x=\", X[i+1], \" y=\", Y[i+1], \" yt=\", yt
+(X[i+1])):\nend do:" }}{PARA 11 "" 1 "" {XPPMATH 20 "6(Q#x=6\"$\"-++++
++5!#7Q$~y=F$$\"-#=j4#*4\"!#6Q%~yt=F$$\"-w)\\m%*4\"F+" }}{PARA 11 "" 1 
+"" {XPPMATH 20 "6(Q#x=6\"$\"-+++++?!#7Q$~y=F$$\"-2C\"\\\\>\"!#6Q%~yt=F
+$$\"-5&>ka>\"F+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6(Q#x=6\"$\"-+++++I!#
+7Q$~y=F$$\"-L=l0$G\"!#6Q%~yt=F$$\"-M!H0QG\"F+" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6(Q#x=6\"$\"-+++++S!#7Q$~y=F$$\"-\\lSne8!#6Q%~yt=F$$\"-FZ
+$)ff8F+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6(Q#x=6\"$\"-+++++]!#7Q$~y=F$
+$\"-SkLU;9!#6Q%~yt=F$$\"-mCUU<9F+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6(Q
+#x=6\"$\"-+++++g!#7Q$~y=F$$\"-vcIo]9!#6Q%~yt=F$$\"-fLeh^9F+" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6(Q#x=6\"$\"-+++++q!#7Q$~y=F$$\"-)p`mfX\"!#6Q%
+~yt=F$$\"-/&HRmX\"F+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6(Q#x=6\"$\"-+++
+++!)!#7Q$~y=F$$\"-\"oO\"QF9!#6Q%~yt=F$$\"-3u!evU\"F+" }}{PARA 11 "" 1 
+"" {XPPMATH 20 "6(Q#x=6\"$\"-+++++!*!#7Q$~y=F$$\"-#)3X8h8!#6Q%~yt=F$$
+\"-%3zV0O\"F+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6(Q#x=6\"$\"-+++++5!#6Q
+$~y=F$$\"-zf6.b7F'Q%~yt=F$$\"-]n2Q`7F'" }}}{EXCHG {PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 163 "xy:=zip((x,y)->[x,y],convert(X,list),convert(Y,list)
+):\nwith(plots):\ngr1:=plot(xy, style=line, color=blue):\ngr2:=plot(yt
+(x), x=a..b, color=red):\ndisplay(gr1, gr2);\n" }}{PARA 13 "" 1 "" 
+{GLPLOT2D 458 458 458 {PLOTDATA 2 "6&-%'CURVESG6%7-7$$\"\"!F)$\"\"\"F)
+7$$\"3/+++++++5!#=$\"3)****>=j4#*4\"!#<7$$\"35+++++++?F/$\"33++2C\"\\
+\\>\"F27$$\"3))**************HF/$\"3+++L=l0$G\"F27$$\"3A+++++++SF/$\"3
+-++\\lSne8F27$$\"3++++++++]F/$\"3%*****RkLU;9F27$$\"3w**************fF
+/$\"3)****\\n0$o]9F27$$\"3a**************pF/$\"3!****zp`mfX\"F27$$\"3U
++++++++!)F/$\"3%****4oO\"QF9F27$$\"3A+++++++!*F/$\"3)****>)3X8h8F27$F*
+$\"3!*****yf6.b7F2-%'COLOURG6&%$RGBGF(F($\"*++++\"!\")-%&STYLEG6#%%LIN
+EG-F$6$7SF'7$$\"3emmm;arz@!#>$\"3Ym%>2!>z@5F27$$\"3[LL$e9ui2%Fio$\"3tK
+d*H&zsS5F27$$\"3nmmm\"z_\"4iFio$\"3Oi,Lio'>1\"F27$$\"3[mmmT&phN)Fio$\"
+3;9p3KOD$3\"F27$$\"3CLLe*=)H\\5F/$\"3So(*[\\:J/6F27$$\"3gmm\"z/3uC\"F/
+$\"3#f1.b:*oB6F27$$\"3%)***\\7LRDX\"F/$\"3'4R_eQsN9\"F27$$\"3]mm\"zR'o
+k;F/$\"3=jiq'p/R;\"F27$$\"3w***\\i5`h(=F/$\"3]?*p(e#)*Q=\"F27$$\"3WLLL
+3En$4#F/$\"3FJfH]_8/7F27$$\"3qmm;/RE&G#F/$\"31a^-Uok@7F27$$\"3\")*****
+\\K]4]#F/$\"3A+%y=vm4C\"F27$$\"3$******\\PAvr#F/$\"3IxN)*Q*)*)f7F27$$
+\"3)******\\nHi#HF/$\"3cjMTgNlx7F27$$\"3jmm\"z*ev:JF/$\"3OP#\\dD?LH\"F
+27$$\"3?LLL347TLF/$\"3;m$zAaL8J\"F27$$\"3,LLLLY.KNF/$\"3!RQ1s(o-E8F27$
+$\"3w***\\7o7Tv$F/$\"3=')RbhATU8F27$$\"3'GLLLQ*o]RF/$\"39%fpQ7OiN\"F27
+$$\"3A++D\"=lj;%F/$\"3!fHp7*fhq8F27$$\"31++vV&R<P%F/$\"3sc\"4<K$\\$Q\"
+F27$$\"3WLL$e9Ege%F/$\"3[gE=aq-'R\"F27$$\"3GLLeR\"3Gy%F/$\"3P7h-Vxn19F
+27$$\"3cmm;/T1&*\\F/$\"3>uBlk@><9F27$$\"3&em;zRQb@&F/$\"3!e;oaS')pU\"F
+27$$\"3\\***\\(=>Y2aF/$\"3qMO,D-`M9F27$$\"39mm;zXu9cF/$\"3Le-&ys-;W\"F
+27$$\"3l******\\y))GeF/$\"3G&zM<P&oZ9F27$$\"3'*)***\\i_QQgF/$\"3sotDF5
+Q_9F27$$\"3@***\\7y%3TiF/$\"3=zC:Zdpb9F27$$\"35****\\P![hY'F/$\"3_j8q#
+p1zX\"F27$$\"3kKLL$Qx$omF/$\"3e!)pA`z_e9F27$$\"3!)*****\\P+V)oF/$\"3'Q
+y97!ord9F27$$\"3?mm\"zpe*zqF/$\"3!ehT8dFcX\"F27$$\"3%)*****\\#\\'QH(F/
+$\"3og>rl)G=X\"F27$$\"3GKLe9S8&\\(F/$\"3GV[S*RtnW\"F27$$\"3R***\\i?=bq
+(F/$\"3ZX\"R-W<*R9F27$$\"3\"HLL$3s?6zF/$\"3Ng7x;&G;V\"F27$$\"3a***\\7`
+Wl7)F/$\"3$z.;S#yB@9F27$$\"3#pmmm'*RRL)F/$\"3=8h/L`a49F27$$\"3Qmm;a<.Y
+&)F/$\"3U*=@8>_eR\"F27$$\"3=LLe9tOc()F/$\"33#o^>o;0Q\"F27$$\"3u******
+\\Qk\\*)F/$\"3sC%=G]n[O\"F27$$\"3CLL$3dg6<*F/$\"3]_KG0A3X8F27$$\"3Immm
+mxGp$*F/$\"3Oot!fa-dK\"F27$$\"3A++D\"oK0e*F/$\"3uH\"e(yAG.8F27$$\"3A++
+v=5s#y*F/$\"3KY'3F;A,G\"F27$F*$\"3=ZM\\n2Q`7F2-Fin6&F[oF\\oF(F(-%+AXES
+LABELSG6%Q!6\"Fj^l-%%FONTG6#%(DEFAULTG-%%VIEWG6$;F($\"#5!\"\"F__l" 1 
+2 0 1 10 0 2 9 1 4 2 1.000000 45.000000 45.000000 0 0 "Curve 1" "Curve
+ 2" }}}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "
+> " 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 
+"" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> \+
+" 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "
+" }}}}{MARK "1 0 0" 49 }{VIEWOPTS 1 1 0 1 1 1803 1 1 1 1 }
+{PAGENUMBERS 0 1 2 33 1 1 }

@@ -1,0 +1,160 @@
+#ifndef AHOCORASICK_H
+#define AHOCORASICK_H
+
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <queue>
+#include <set>
+#include <utility>
+
+class AhoCorasick {
+private:
+    struct Node {
+        std::unordered_map<char, int> next;
+        int fail;
+        std::set<int> output;
+        
+        Node() : fail(0) {}
+    };
+    
+    std::vector<Node> trie;
+    int comparisons;
+    bool built;
+    std::vector<std::string> patterns;
+
+public:
+    AhoCorasick() : comparisons(0), built(false) {
+        trie.push_back(Node());
+    }
+    
+    int addPattern(const std::string& pattern) {
+        built = false;
+        int node = 0;
+        for (char ch : pattern) {
+            comparisons++;
+            if (trie[node].next.find(ch) == trie[node].next.end()) {
+                trie[node].next[ch] = static_cast<int>(trie.size());
+                trie.push_back(Node());
+            }
+            node = trie[node].next[ch];
+        }
+        int patternId = static_cast<int>(patterns.size());
+        patterns.push_back(pattern);
+        trie[node].output.insert(patternId);
+        return patternId;
+    }
+    
+    void build() {
+        if (built) return;
+        
+        std::queue<int> q;
+        
+        for (char c = 0; c < 127; c++) {
+            char ch = static_cast<char>(c);
+            if (trie[0].next.find(ch) != trie[0].next.end()) {
+                int child = trie[0].next[ch];
+                trie[child].fail = 0;
+                q.push(child);
+            } else {
+                trie[0].next[ch] = 0;
+            }
+        }
+        
+        while (!q.empty()) {
+            int r = q.front();
+            q.pop();
+            
+            for (char c = 0; c < 127; c++) {
+                char ch = static_cast<char>(c);
+                
+                if (trie[r].next.find(ch) != trie[r].next.end()) {
+                    int u = trie[r].next[ch];
+                    q.push(u);
+                    
+                    int f = trie[r].fail;
+                    comparisons++;
+                    
+                    if (trie[f].next.find(ch) != trie[f].next.end()) {
+                        comparisons++;
+                        trie[u].fail = trie[f].next[ch];
+                    } else {
+                        trie[u].fail = 0;
+                    }
+                    
+                    for (int out : trie[trie[u].fail].output) {
+                        trie[u].output.insert(out);
+                    }
+                } else {
+                    int f = trie[r].fail;
+                    comparisons++;
+                    
+                    if (trie[f].next.find(ch) != trie[f].next.end()) {
+                        comparisons++;
+                        trie[r].next[ch] = trie[f].next[ch];
+                    } else {
+                        trie[r].next[ch] = 0;
+                    }
+                }
+            }
+        }
+        
+        built = true;
+    }
+    
+    std::vector<std::pair<int, int>> search(const std::string& text) {
+        if (!built) {
+            build();
+        }
+        
+        std::vector<std::pair<int, int>> matches;
+        int node = 0;
+        
+        for (size_t pos = 0; pos < text.size(); ++pos) {
+            char ch = text[pos];
+            comparisons++;
+            node = trie[node].next[ch];
+            
+            for (int patternId : trie[node].output) {
+                matches.emplace_back(patternId, 
+                                     static_cast<int>(pos - patterns[patternId].size() + 1));
+            }
+        }
+        
+        return matches;
+    }
+    
+    int getComparisons() const {
+        return comparisons;
+    }
+    
+    void resetComparisons() {
+        comparisons = 0;
+    }
+    
+    void clear() {
+        trie.clear();
+        trie.push_back(Node());
+        comparisons = 0;
+        built = false;
+        patterns.clear();
+    }
+    
+    bool isBuilt() const {
+        return built;
+    }
+    
+    size_t getPatternCount() const {
+        return patterns.size();
+    }
+    
+    size_t getNodeCount() const {
+        return trie.size();
+    }
+    
+    const std::string& getPattern(int id) const {
+        return patterns[id];
+    }
+};
+
+#endif

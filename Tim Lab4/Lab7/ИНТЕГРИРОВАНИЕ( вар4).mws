@@ -101,76 +101,57 @@ n Text" -1 210 "Times" 1 12 0 0 0 1 2 1 2 2 2 2 0 0 0 1 }}
 {SECT 0 {EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 8 "restart;" }}}{EXCHG 
 {PARA 0 "> " 0 "" {MPLTEXT 1 0 12 "Digits:= 14;" }}{PARA 11 "" 1 "" 
 {XPPMATH 20 ">I'DigitsG6\"\"#9" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 
-1 0 23 "f:=(x)->evalf(4/(x^3));" }}{PARA 207 "" 1 "" {TEXT 211 0 "" }
-{HYPERLNK 211 "Warning, not a built-in function (`copy`)" 4 "http://ww
-w.maplesoft.com/support/help/errors/view.aspx?path=Warning,%20not%20a%
-20built-in%20function%20(%60copy%60)" "" }{TEXT 211 0 "" }}{PARA 11 ""
- 1 "" {XPPMATH 20 ">I\"fG6\"f*6#I\"xGF$F$6$I)operatorGF$I&arrowGF$F$-I
-&evalfG%*protectedG6#,$*$9$!\"$\"\"%F$F$F$" }}}{EXCHG {PARA 0 "> " 0 "
-" {MPLTEXT 1 0 24 "F:=(x)->evalf(-2/(x^2));" }}{PARA 11 "" 1 "" 
-{XPPMATH 20 ">I\"FG6\"f*6#I\"xGF$F$6$I)operatorGF$I&arrowGF$F$-I&evalf
-G%*protectedG6#,$*$9$!\"#F2F$F$F$" }}}{EXCHG {PARA 0 "> " 0 "" 
-{MPLTEXT 1 0 43 " a:=1; b:=sqrt(2); eps:=0.001; maxit := 16;" }}{PARA 
-11 "" 1 "" {XPPMATH 20 ">I\"aG6\"\"\"\"" }}{PARA 11 "" 1 "" {XPPMATH 
-20 ">I\"bG6\"*$\"\"##\"\"\"F&" }}{PARA 11 "" 1 "" {XPPMATH 20 ">I$epsG
-6\"$\"\"\"!\"$" }}{PARA 11 "" 1 "" {XPPMATH 20 ">I&maxitG6\"\"#;" }}}
-{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 8 "n0 := 2;" }}{PARA 11 "" 1 "" 
-{XPPMATH 20 ">I#n0G6\"\"\"#" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 
-0 "" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 ""
- {MPLTEXT 1 0 21 "KF_SP:=proc(n, a, b)\n" }{MPLTEXT 1 0 16 " local h, \+
-s, i;\n" }{MPLTEXT 1 0 14 "  h:=(b-a)/n;\n" }{MPLTEXT 1 0 8 "  s:=0;\n
-" }{MPLTEXT 1 0 25 "  for i from 0 to n-1 do\n" }{MPLTEXT 1 0 38 "    \+
-s:= s + h*f((2*a + 2*i*h + h)/2);\n" }{MPLTEXT 1 0 6 "  od;\n" }
-{MPLTEXT 1 0 20 "  return(evalf(s));\n" }{MPLTEXT 1 0 9 "end proc;" }}
-{PARA 11 "" 1 "" {XPPMATH 20 ">I&KF_SPG6\"f*6%I\"nGF$I\"aGF$I\"bGF$6%I
-\"hGF$I\"sGF$I\"iGF$F$F$C&>8$*&,&9&\"\"\"9%!\"\"F49$F6>8%\"\"!?(8&F:F4
-,&F7F4F6F4I%trueG%*protectedG>F9,&F9F4*&F0F4-I\"fGF$6#,(F5F4*&F<F4F0F4
-F4F0#F4\"\"#F4F4O-I&evalfGF?6#F9F$F$F$" }}}{EXCHG {PARA 0 "> " 0 "" 
-{MPLTEXT 1 0 34 "Runge:= proc(n0, eps, SKF, maxit)\n" }{MPLTEXT 1 0 
-39 "  local i, n, INTstart, INTnext, code;\n" }{MPLTEXT 1 0 10 "  n:= \+
-n0;\n" }{MPLTEXT 1 0 13 "  code := 1;\n" }{MPLTEXT 1 0 27 "  INTstart:
-= SKF(n, a, b);\n" }{MPLTEXT 1 0 28 "  INTnext:= SKF(2*n, a, b);\n" }
-{MPLTEXT 1 0 75 "  for i from 1 to maxit while (evalf(abs(INTnext - IN
-Tstart)) >= 3*eps) do\n" }{MPLTEXT 1 0 13 "    n:= n+2;\n" }{MPLTEXT 
-1 0 29 "    INTstart:= SKF(n, a, b);\n" }{MPLTEXT 1 0 30 "    INTnext:
-= SKF(2*n, a, b);\n" }{MPLTEXT 1 0 6 "  od;\n" }{MPLTEXT 1 0 21 "  if \+
-i < maxit then \n" }{MPLTEXT 1 0 14 "    code:=0; \n" }{MPLTEXT 1 0 
-10 "  end if;\n" }{MPLTEXT 1 0 34 "  return n, evalf(INTnext), code;\n
-" }{MPLTEXT 1 0 9 "end proc;" }}{PARA 11 "" 1 "" {XPPMATH 20 ">I&Runge
-G6\"f*6&I#n0GF$I$epsGF$I$SKFGF$I&maxitGF$6'I\"iGF$I\"nGF$I)INTstartGF$
-I(INTnextGF$I%codeGF$F$F$C)>8%9$>8(\"\"\">8&-9&6%F3I\"aGF$I\"bGF$>8'-F
-;6%,$F3\"\"#F=F>?(8$F7F79'1,$9%\"\"$-I&evalfG%*protectedG6#-I$absGFN6#
-,&F@F7F9!\"\"C%>F3,&F3F7FDF7F8F?@$2FFFG>F6\"\"!O6%F3-FM6#F@F6F$F$F$" }
-}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 9 "# \322\345\361\362 1\n" }
+1 0 26 "f:=(x)-> cos(2*x) / (x+1);" }}{PARA 207 "" 1 "" {TEXT 211 0 ""
+ }{HYPERLNK 211 "Warning, not a built-in function (`copy`)" 4 "http://
+www.maplesoft.com/support/help/errors/view.aspx?path=Warning,%20not%20
+a%20built-in%20function%20(%60copy%60)" "" }{TEXT 211 0 "" }}{PARA 11 
+"" 1 "" {XPPMATH 20 ">I\"fG6\"f*6#I\"xGF$F$6$I)operatorGF$I&arrowGF$F$
+*&-I$cosG6$%*protectedGI(_syslibGF$6#,$9$\"\"#\"\"\",&F3F5F5F5!\"\"F$F
+$F$" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 43 " a:= 0.6; b:= 1.6; e
+ps:=0.001; maxit := 16;" }}{PARA 11 "" 1 "" {XPPMATH 20 ">I\"aG6\"$\"
+\"'!\"\"" }}{PARA 11 "" 1 "" {XPPMATH 20 ">I\"bG6\"$\"#;!\"\"" }}
+{PARA 11 "" 1 "" {XPPMATH 20 ">I$epsG6\"$\"\"\"!\"$" }}{PARA 11 "" 1 "
+" {XPPMATH 20 ">I&maxitG6\"\"#;" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 
+1 0 8 "n0 := 2;" }}{PARA 11 "" 1 "" {XPPMATH 20 ">I#n0G6\"\"\"#" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 21 "KF_SP:=
+proc(n, a, b)\n" }{MPLTEXT 1 0 16 " local h, s, i;\n" }{MPLTEXT 1 0 
+14 "  h:=(b-a)/n;\n" }{MPLTEXT 1 0 8 "  s:=0;\n" }{MPLTEXT 1 0 25 "  f
+or i from 0 to n-1 do\n" }{MPLTEXT 1 0 38 "    s:= s + h*f((2*a + 2*i*
+h + h)/2);\n" }{MPLTEXT 1 0 6 "  od;\n" }{MPLTEXT 1 0 20 "  return(eva
+lf(s));\n" }{MPLTEXT 1 0 9 "end proc;" }}{PARA 11 "" 1 "" {XPPMATH 20 
+">I&KF_SPG6\"f*6%I\"nGF$I\"aGF$I\"bGF$6%I\"hGF$I\"sGF$I\"iGF$F$F$C&>8$
+*&,&9&\"\"\"9%!\"\"F49$F6>8%\"\"!?(8&F:F4,&F7F4F6F4I%trueG%*protectedG
+>F9,&F9F4*&F0F4-I\"fGF$6#,(F5F4*&F<F4F0F4F4F0#F4\"\"#F4F4O-I&evalfGF?6
+#F9F$F$F$" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 34 "Runge:= proc(n
+0, eps, SKF, maxit)\n" }{MPLTEXT 1 0 39 "  local i, n, INTstart, INTne
+xt, code;\n" }{MPLTEXT 1 0 10 "  n:= n0;\n" }{MPLTEXT 1 0 13 "  code :
+= 1;\n" }{MPLTEXT 1 0 27 "  INTstart:= SKF(n, a, b);\n" }{MPLTEXT 1 0 
+28 "  INTnext:= SKF(2*n, a, b);\n" }{MPLTEXT 1 0 75 "  for i from 1 to
+ maxit while (evalf(abs(INTnext - INTstart)) >= 3*eps) do\n" }{MPLTEXT
+ 1 0 13 "    n:= n+2;\n" }{MPLTEXT 1 0 29 "    INTstart:= SKF(n, a, b)
+;\n" }{MPLTEXT 1 0 30 "    INTnext:= SKF(2*n, a, b);\n" }{MPLTEXT 1 0 
+6 "  od;\n" }{MPLTEXT 1 0 21 "  if i < maxit then \n" }{MPLTEXT 1 0 
+14 "    code:=0; \n" }{MPLTEXT 1 0 10 "  end if;\n" }{MPLTEXT 1 0 34 "
+  return n, evalf(INTnext), code;\n" }{MPLTEXT 1 0 10 "end proc; " }}
+{PARA 11 "" 1 "" {XPPMATH 20 ">I&RungeG6\"f*6&I#n0GF$I$epsGF$I$SKFGF$I
+&maxitGF$6'I\"iGF$I\"nGF$I)INTstartGF$I(INTnextGF$I%codeGF$F$F$C)>8%9$
+>8(\"\"\">8&-9&6%F3I\"aGF$I\"bGF$>8'-F;6%,$F3\"\"#F=F>?(8$F7F79'1,$9%
+\"\"$-I&evalfG%*protectedG6#-I$absGFN6#,&F@F7F9!\"\"C%>F3,&F3F7FDF7F8F
+?@$2FFFG>F6\"\"!O6%F3-FM6#F@F6F$F$F$" }}}{EXCHG {PARA 0 "> " 0 "" 
 {MPLTEXT 1 0 45 "n, INT, code:= Runge(n0, eps, KF_SP, maxit);\n" }
 {MPLTEXT 1 0 17 "if code = 0 then\n" }{MPLTEXT 1 0 74 "  print(\"\323
 \361\357\345\370\355\356 \355\340\351\344\345\355\356 \357\360\350\341
 \353\345\346\345\355\355\356\345 \347\355\340\367\345\355\350\345 = \"
-, INT, \" \357\360\350 n = \", n);\n" }{MPLTEXT 1 0 45 "  print(\"\322
-\356\367\355\356\345 \347\355\340\367\345\355\350\345 = \", F(b) - F(a
-)); \n" }{MPLTEXT 1 0 5 "else\n" }{MPLTEXT 1 0 20 "  print(\"Error!\")
-; \n" }{MPLTEXT 1 0 8 "end if;\n" }}{PARA 11 "" 1 "" {XPPMATH 20 ">6%I
-\"nG6\"I$INTGF%I%codeGF%6%\"\"%$\".'>&=l**)**!#8\"\"!" }}{PARA 11 "" 1
- "" {XPPMATH 20 "6&Qeo|[x|^u|\\x|\\s|[x|jv|[x|`v|\\x|cs|[x|hv|[x|iv~|[
-x|hv|[x|[v|[x|dv|[x|_v|[x|`v|[x|hv|[x|iv~|[x|jv|\\x|[s|[x|cv|[x|\\v|[x
-|fv|[x|`v|[x|av|[x|`v|[x|hv|[x|hv|[x|iv|[x|`v~|[x|bv|[x|hv|[x|[v|\\x|b
-s|[x|`v|[x|hv|[x|cv|[x|`v~=~6\"$\".'>&=l**)**!#8Q-~|[x|jv|\\x|[s|[x|cv
-~n~=~F$\"\"%" }}{PARA 11 "" 1 "" {XPPMATH 20 "6$QA|[x|]u|[x|iv|\\x|bs|
-[x|hv|[x|iv|[x|`v~|[x|bv|[x|hv|[x|[v|\\x|bs|[x|`v|[x|hv|[x|cv|[x|`v~=~
-6\"$\"\"\"\"\"!" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 9 "# \322\34
-5\361\362 2\n" }{MPLTEXT 1 0 12 "maxit := 2;\n" }{MPLTEXT 1 0 45 "n, I
-NT, code:= Runge(n0, eps, KF_SP, maxit);\n" }{MPLTEXT 1 0 17 "if code \+
-= 0 then\n" }{MPLTEXT 1 0 74 "  print(\"\323\361\357\345\370\355\356 \+
-\355\340\351\344\345\355\356 \357\360\350\341\353\345\346\345\355\355
-\356\345 \347\355\340\367\345\355\350\345 = \", INT, \" \357\360\350 n
- = \", n);\n" }{MPLTEXT 1 0 45 "  print(\"\322\356\367\355\356\345 \34
-7\355\340\367\345\355\350\345 = \", F(b) - F(a)); \n" }{MPLTEXT 1 0 5 
-"else\n" }{MPLTEXT 1 0 20 "  print(\"Error!\"); \n" }{MPLTEXT 1 0 8 "e
-nd if;\n" }}{PARA 11 "" 1 "" {XPPMATH 20 ">I&maxitG6\"\"\"#" }}{PARA 
-11 "" 1 "" {XPPMATH 20 ">6%I\"nG6\"I$INTGF%I%codeGF%6%\"\"%$\".'>&=l**
-)**!#8\"\"\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "Q'Error!6\"" }}}{EXCHG 
-{PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 "" 
-{MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}
+, INT, \" \357\360\350 n = \", n);\n" }{MPLTEXT 1 0 5 "else\n" }
+{MPLTEXT 1 0 21 "   print(\"Error!\"); \n" }{MPLTEXT 1 0 8 "end if;\n"
+ }}{PARA 11 "" 1 "" {XPPMATH 20 ">6%I\"nG6\"I$INTGF%I%codeGF%6%\"\"%$!
+/YG&y![@@!#9\"\"!" }}{PARA 11 "" 1 "" {XPPMATH 20 "6&Qeo|[x|^u|\\x|\\s
+|[x|jv|[x|`v|\\x|cs|[x|hv|[x|iv~|[x|hv|[x|[v|[x|dv|[x|_v|[x|`v|[x|hv|[
+x|iv~|[x|jv|\\x|[s|[x|cv|[x|\\v|[x|fv|[x|`v|[x|av|[x|`v|[x|hv|[x|hv|[x
+|iv|[x|`v~|[x|bv|[x|hv|[x|[v|\\x|bs|[x|`v|[x|hv|[x|cv|[x|`v~=~6\"$!/YG
+&y![@@!#9Q-~|[x|jv|\\x|[s|[x|cv~n~=~F$\"\"%" }}}{EXCHG {PARA 0 "> " 0 
+"" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}
 {EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 ""
  {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}
 {EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 ""
@@ -186,6 +167,6 @@ nd if;\n" }}{PARA 11 "" 1 "" {XPPMATH 20 ">I&maxitG6\"\"\"#" }}{PARA
 {EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 ""
  {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}
 {EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 ""
- {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}}
-{MARK "0 0 0" 0 }{VIEWOPTS 1 1 0 13 10 1803 1 1 1 1 }{PAGENUMBERS 0 1
- 2 33 1 1 }
+ {MPLTEXT 1 0 0 "" }}}}
+{MARK "0 0 0" 0 }{VIEWOPTS 1 1 0 142 100 1803 1 1 1 1 }{PAGENUMBERS 0
+ 1 2 33 1 1 }
